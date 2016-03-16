@@ -6,14 +6,10 @@ const template = `<section class="col-sm-4">
 								<input id="inputOrigin" 
 										class="form-control" 
 										type="text" 
-										aria-describedby="inputOriginHelp"
 										ng-model="form.model.origin" 
 										ng-pattern="form.pattern.airport" 
 										placeholder="try “LAX”" 
 										required>
-								<span id="inputOriginHelp" class="help-block">
-									Three-letter airport code in uppercase
-								</span>
 							</div>
 						</div>
 
