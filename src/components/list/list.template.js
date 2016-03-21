@@ -1,7 +1,7 @@
 const template = `<section class="col-sm-8" ng-switch="viewStatus">
 						<div ng-switch-when="READY">
 							<div class="list-group" ng-show="!!flights.length">
-								<a class="list-group-item" ng-click="detailView = !detailView" ng-repeat="flight in flights">
+								<button type="button" class="list-group-item" ng-click="detailView = !detailView" ng-repeat="flight in flights">
 									<span class="badge">{{stripCurrency(flight.price) | currency:"€"}}</span>
 									<dl class="dl-horizontal">
 										<dt>Departure</dt>
@@ -26,7 +26,7 @@ const template = `<section class="col-sm-8" ng-switch="viewStatus">
 											</tr>
 										</table>
 									</div>
-								</a>
+								</button>
 							</div>
 							<h2 ng-show="flights.length == 0">No flights found.</h2>
 						</div>
