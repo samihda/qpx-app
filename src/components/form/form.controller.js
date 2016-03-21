@@ -28,9 +28,9 @@ function FormCtrl($ngRedux, typeaheadService, dataService) {
 	};
 
 	vm.pattern = {
-		airport: /^([A-Z]{3})$/,
-		date: /^(\d{4})-(\d{2})-(\d{2})$/,
-		budget: /(^$|^[1-9]\d*(\.\d{2})?$)/
+		airport: /^[A-Z]{3}$/,
+		date: /^201[67]-(0\d|1[012])-([012]\d|3(0|1))$/, // valid until 2017-12-31
+		budget: /^$|^[1-9]\d*(\.\d{2})?$/
 	};
 
 	/**
