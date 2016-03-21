@@ -4,12 +4,12 @@ const template = `<section class="col-sm-4">
 							<label for="inputOrigin" class="col-sm-4 control-label">From</label>
 							<div class="col-sm-8">
 								<input id="inputOrigin" 
-										class="form-control" 
+										class="form-control typeahead" 
 										type="text" 
 										ng-model="form.model.origin" 
 										ng-pattern="form.pattern.airport" 
 										placeholder="try “LAX”" 
-										required>
+										>
 							</div>
 						</div>
 
@@ -22,7 +22,7 @@ const template = `<section class="col-sm-4">
 										ng-model="form.model.destination" 
 										ng-pattern="form.pattern.airport" 
 										placeholder="try “JFK”" 
-										required>
+										>
 							</div>
 						</div>
 
@@ -81,7 +81,7 @@ const template = `<section class="col-sm-4">
 						<hr>
 
 						<div class="pull-right">
-							<input type="reset" class="btn btn-default">
+							<input type="reset" class="btn btn-default" ng-click="form.reset()">
 							<input type="submit" class="btn btn-primary" ng-disabled="!searchForm.$valid" value="Search">
 						</div>
 					</form>

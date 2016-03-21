@@ -4,11 +4,21 @@ import {
 	fetchFlightsFailure
 } from '../../actions';
 
-function FormCtrl($ngRedux, dataService) {
-	let vm = this;
+function FormCtrl($ngRedux, typeaheadService, dataService) {
+	const inputOrigin = typeaheadService.setTypeahead('#inputOrigin');
+	const inputDestination = typeaheadService.setTypeahead('#inputDestination');
 
-	vm.submit = submit;
+	/**
+	 * manual, event-based binding
+	 */
+	inputOrigin.on('input typeahead:select', (e) => { vm.model.origin = e.target.value; });
+	inputDestination.on('input typeahead:select', (e) => { vm.model.destination = e.target.value; });
+
+	let vm = this;
 	
+	/**
+	 * set initial values
+	 */
 	vm.model = {
 		origin: '',
 		destination: '',
@@ -34,10 +44,19 @@ function FormCtrl($ngRedux, dataService) {
 			formatYear: 'yyyy'
 		},
 		isOpen: false,
-		open: function () {
+		open() {
 			vm.dp.isOpen = true;
 		}
 	};
+
+	vm.submit = submit;
+	vm.reset = reset;
+
+	const init = Object.assign({}, vm.model);
+
+	function reset() {
+		vm.model = init;
+	}
 
 	function submit() {
 		$ngRedux.dispatch(fetchFlightsRequest());
@@ -102,6 +121,6 @@ function FormCtrl($ngRedux, dataService) {
 	}
 }
 
-FormCtrl.$inject = ['$ngRedux', 'dataService'];
+FormCtrl.$inject = ['$ngRedux', 'typeaheadService', 'dataService'];
 
 export default FormCtrl;
