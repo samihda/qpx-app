@@ -1,28 +1,6 @@
 import 'typeahead.js/dist/typeahead.jquery.min.js';
 import list from 'json!airport-codes/airports.json';
 
-function matcher(arr) {
-	return function findMatches(q, cb) {
-		const substrRegex = new RegExp(q, 'i');
-		let matches = [];
-		let secondaryMatches = [];
-
-		arr.forEach((val, idx, arr) => {
-			if (substrRegex.test(val.slice(0, 3))) {
-				matches.push(val);
-			}
-
-			if (substrRegex.test(val.slice(4))) {
-				secondaryMatches.push(val);
-			}
-		});
-
-		const suggestions = matches.concat(secondaryMatches);
-
-		cb(suggestions);
-	}
-}
-
 const airports = list.filter(obj => obj.iata !== '')
 					.map(obj => {
 						const { iata, city, name } = obj;
@@ -41,6 +19,28 @@ const dataset = {
 	name: 'airports',
 	source: matcher(airports)
 };
+
+function matcher(arr) {
+	return function findMatches(q, cb) {
+		const substrRegex = new RegExp(q, 'i');
+		let matches = [];
+		let secondaryMatches = [];
+
+		for (let i = 0, len = arr.length; i < len; i++) {
+			if (substrRegex.test(arr[i].slice(0, 3))) {
+				matches.push(arr[i]);
+			}
+
+			if (substrRegex.test(arr[i].slice(4))) {
+				secondaryMatches.push(arr[i]);
+			}
+		}
+
+		const suggestions = matches.concat(secondaryMatches);
+
+		cb(suggestions);
+	}
+}
 
 function typeaheadService($) {
 	return {
