@@ -11,7 +11,7 @@ function dataService($http) {
 		 * @param  {String} options.maxPrice    maximum price (e.g. 'EUR200.00' or empty (''))
 		 * @return {Promise}                    promise object
 		 */
-		getFlights: ({ origin, destination, date, passengers = 1, maxPrice = '' }) => {
+		getFlights({ origin, destination, date, passengers = 1, maxPrice = '' }) {
 			const price = maxPrice ? currency + maxPrice : '';
 
 			const data = {
