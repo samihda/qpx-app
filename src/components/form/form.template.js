@@ -47,7 +47,7 @@ const template = `<section class="col-sm-4">
 							<label for="inputPassengers" class="col-sm-4 control-label">Passengers</label>
 							<div class="col-sm-8">
 								<select id="inputPassengers" class="form-control" ng-model="form.model.passengers">
-									<option ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-selected="n == form.model.passengers" value="n">
+									<option ng-repeat="n in form.passengerOptions" ng-selected="n == form.model.passengers" value="n">
 										{{n}}
 									</option>
 								</select>
