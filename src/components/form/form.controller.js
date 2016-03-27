@@ -93,8 +93,8 @@ function FormCtrl($ngRedux, $filter, suggestionsService, dataService) {
 				segments: item.slice[0].segment.map((s) => {
 					const legs = s.leg.map((l) => {
 						return {
-							origin: l.origin,
-							destination: l.destination,
+							origin: response.data.trips.data.airport.find(i => i.code === l.origin).name,
+							destination: response.data.trips.data.airport.find(i => i.code === l.destination).name,
 							arrival: l.arrivalTime,
 							departure: l.departureTime
 						}

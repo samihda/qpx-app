@@ -19,19 +19,9 @@ function ListCtrl($scope) {
 		}).reduce((a, b) => a + b);
 	};
 	
-	$scope.getDate = function (str) {
-		const d = new Date(str);
-		return d.toDateString();
-	};
-
-	$scope.getDateTime = function (str) {
-		const d = new Date(str);
-		return d.toLocaleString();
-	};
-
 	$scope.stripCurrency = function (str) {
 		return str.slice(3);
-	}
+	};
 }
 
 ListCtrl.$inject = ['$scope'];
