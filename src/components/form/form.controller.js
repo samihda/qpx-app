@@ -4,16 +4,7 @@ import {
 	fetchFlightsFailure
 } from '../../actions';
 
-function FormCtrl($ngRedux, typeaheadService, dataService) {
-	const inputOrigin = typeaheadService.setTypeahead('#inputOrigin');
-	const inputDestination = typeaheadService.setTypeahead('#inputDestination');
-
-	/**
-	 * manual, event-based binding
-	 */
-	inputOrigin.on('input typeahead:select', (e) => { vm.model.origin = e.target.value; });
-	inputDestination.on('input typeahead:select', (e) => { vm.model.destination = e.target.value; });
-
+function FormCtrl($ngRedux, $filter, suggestionsService, dataService) {
 	let vm = this;
 	
 	/**
@@ -28,7 +19,7 @@ function FormCtrl($ngRedux, typeaheadService, dataService) {
 	};
 
 	vm.pattern = {
-		airport: /^[A-Z]{3}$/,
+		airport: /^[A-Z0-9]{3}/,
 		date: /^201[67]-(0\d|1[012])-([012]\d|3(0|1))$/, // valid until 2017-12-31
 		budget: /^$|^[1-9]\d*(\.\d{2})?$/
 	};
@@ -49,6 +40,9 @@ function FormCtrl($ngRedux, typeaheadService, dataService) {
 		}
 	};
 
+	vm.passengerOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+	vm.searchAirport = suggestionsService.filterAirports;
 	vm.submit = submit;
 	vm.reset = reset;
 
@@ -62,11 +56,10 @@ function FormCtrl($ngRedux, typeaheadService, dataService) {
 		$ngRedux.dispatch(fetchFlightsRequest());
 		
 		let params = Object.assign({}, vm.model);
-		const str = Date.parse(params.date);
-		const obj = new Date(str);
+		params.date = $filter('date')(params.date, 'yyyy-MM-dd');
+		params.origin = params.origin.slice(0, 3);
+		params.destination = params.destination.slice(0, 3);
 
-		params.date = obj.toISOString().slice(0, 10);
-		
 		dataService.getFlights(params).then(successCb, errorCb);
 	}
 
@@ -121,6 +114,6 @@ function FormCtrl($ngRedux, typeaheadService, dataService) {
 	}
 }
 
-FormCtrl.$inject = ['$ngRedux', 'typeaheadService', 'dataService'];
+FormCtrl.$inject = ['$ngRedux', '$filter', 'suggestionsService', 'dataService'];
 
 export default FormCtrl;

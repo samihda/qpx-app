@@ -3,26 +3,26 @@ const template = `<section class="col-sm-4">
 						<div class="form-group">
 							<label for="inputOrigin" class="col-sm-4 control-label">From</label>
 							<div class="col-sm-8">
-								<input id="inputOrigin" 
-										class="form-control typeahead" 
-										type="text" 
-										ng-model="form.model.origin" 
-										ng-pattern="form.pattern.airport" 
+								<input id="inputOrigin"
+										class="form-control"
+										type="text"
 										placeholder="try “LAX”" 
-										>
+										ng-model="form.model.origin"
+										uib-typeahead="airport for airport in form.searchAirport($viewValue) | limitTo:10"
+								>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="inputDestination" class="col-sm-4 control-label">To</label>
 							<div class="col-sm-8">
-								<input id="inputDestination" 
-										class="form-control" 
-										type="text" 
-										ng-model="form.model.destination" 
-										ng-pattern="form.pattern.airport" 
+								<input id="inputDestination"
+										class="form-control"
+										type="text"
 										placeholder="try “JFK”" 
-										>
+										ng-model="form.model.destination"
+										uib-typeahead="airport for airport in form.searchAirport($viewValue) | limitTo:10"
+								>
 							</div>
 						</div>
 
@@ -31,7 +31,7 @@ const template = `<section class="col-sm-4">
 							<div class="col-sm-8">
 							    <input id="inputDate"
 							    		type="text" 
-							    		uib-datepicker-popup="yyyy-MM-dd"
+							    		uib-datepicker-popup
 							    		class="form-control" 
 							    		ng-model="form.model.date" 
 							    		is-open="form.dp.isOpen" 
@@ -47,16 +47,9 @@ const template = `<section class="col-sm-4">
 							<label for="inputPassengers" class="col-sm-4 control-label">Passengers</label>
 							<div class="col-sm-8">
 								<select id="inputPassengers" class="form-control" ng-model="form.model.passengers">
-									<option value="1" ng-selected="true">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
+									<option ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-selected="n == form.model.passengers" value="n">
+										{{n}}
+									</option>
 								</select>
 							</div>
 						</div>
