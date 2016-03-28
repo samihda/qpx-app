@@ -13,14 +13,13 @@ function FormCtrl($ngRedux, $filter, suggestionsService, dataService) {
 	vm.model = {
 		origin: '',
 		destination: '',
-		date: new Date(),
+		date: new Date().setDate(new Date().getDate() + 1), // tomorrow
 		passengers: 1,
 		maxPrice: ''
 	};
 
 	vm.pattern = {
 		airport: /^[A-Z0-9]{3}/,
-		date: /^201[67]-(0\d|1[012])-([012]\d|3(0|1))$/, // valid until 2017-12-31
 		budget: /^$|^[1-9]\d*(\.\d+)?$/
 	};
 
@@ -29,7 +28,8 @@ function FormCtrl($ngRedux, $filter, suggestionsService, dataService) {
 	 */
 	vm.dp = {
 		options: {
-			minDate: new Date()
+			minDate: new Date(),
+			showWeeks: false
 		},
 		isOpen: false,
 		open() {

@@ -36,18 +36,27 @@ const template = `<section class="col-sm-4">
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group" ng-class="{'has-error': searchForm.date.$dirty && searchForm.date.$invalid}">
 							<label for="inputDate" class="col-sm-4 control-label">Departure</label>
 							<div class="col-sm-8">
-							    <input id="inputDate"
-							    		type="text" 
-							    		uib-datepicker-popup
-							    		class="form-control" 
-							    		ng-model="form.model.date" 
-							    		is-open="form.dp.isOpen" 
-							    		ng-click="form.dp.open()" 
-							    		show-button-bar="false" 
-							    		required>
+								<div class="input-group">
+								    <input id="inputDate"
+								    		name="date"
+								    		class="form-control" 
+								    		type="text" 
+											aria-describedby="inputDateHelp"
+								    		ng-model="form.model.date" 
+								    		uib-datepicker-popup="d MMMM yyyy"
+								    		datepicker-options="form.dp.options"
+								    		is-open="form.dp.isOpen" 
+								    		show-button-bar="false" 
+								    		required
+								    >
+								    <span class="input-group-btn">
+								    	<button type="button" class="btn btn-default" ng-click="form.dp.open()"><span class="glyphicon glyphicon-calendar"></span></button>
+								    </span>
+								</div>
+								<span id="inputDateHelp" class="help-block" ng-show="searchForm.date.$dirty && searchForm.date.$invalid">Please enter a valid date</span>
 							</div>
 						</div>
 
@@ -79,7 +88,7 @@ const template = `<section class="col-sm-4">
 											placeholder="e.g. “1000”"
 									>
 								</div>
-								<span id="inputMaxPriceHelp" class="help-block" ng-show="searchForm.maxPrice.$invalid">Enter a valid number</span>
+								<span id="inputMaxPriceHelp" class="help-block" ng-show="searchForm.maxPrice.$invalid">Please enter a valid number</span>
 							</div>
 						</div>
 
@@ -88,7 +97,7 @@ const template = `<section class="col-sm-4">
 						<hr>
 
 						<div class="pull-right">
-							<input type="reset" class="btn btn-default" ng-click="form.reset()">
+							<button type="button" class="btn btn-default" ng-click="form.reset()">Reset</button>
 							<input type="submit" class="btn btn-primary" ng-disabled="!searchForm.$valid" value="Search">
 						</div>
 					</form>
